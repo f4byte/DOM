@@ -1,0 +1,3 @@
+# Copy to .dev.vars for local development (wrangler dev reads it). Never commit .dev.vars.
+# Required to create the very first account.
+SETUP_KEY=change-me-local-setup-key

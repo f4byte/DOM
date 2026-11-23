@@ -1,0 +1,52 @@
+{
+  "name": "pims",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Personal Internship Management System — React + Cloudflare Workers + D1",
+  "scripts": {
+    "dev": "concurrently -k -n worker,web -c blue,green \"npm:dev:worker\" \"npm:dev:web\"",
+    "dev:web": "vite --config web/vite.config.ts",
+    "dev:worker": "wrangler dev --port 8787 --persist-to .wrangler/state",
+    "build": "vite build --config web/vite.config.ts",
+    "preview": "npm run build && wrangler dev --port 8787 --persist-to .wrangler/state",
+    "deploy": "npm run build && wrangler deploy",
+    "db:migrate:local": "wrangler d1 migrations apply pims-db --local --persist-to .wrangler/state",
+    "db:migrate:remote": "wrangler d1 migrations apply pims-db --remote",
+    "typecheck": "tsc -p worker/tsconfig.json --noEmit && tsc -p web/tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:api": "node scripts/api-smoke.mjs",
+    "icons": "python3 scripts/make-icons.py"
+  },
+  "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.2",
+    "@tanstack/react-query": "^5.59.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "hono": "^4.6.0",
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^3.8.4",
+    "lucide-react": "^0.454.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.27.0",
+    "recharts": "^2.13.0",
+    "sonner": "^1.7.0",
+    "tailwind-merge": "^2.5.4",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261104.1",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.0.1",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.14",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10",
+    "vitest": "^2.1.4",
+    "wrangler": "^4.0.0"
+  }
+}

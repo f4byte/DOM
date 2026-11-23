@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 98%;
+    --foreground: 224 25% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 25% 12%;
+    --border: 220 14% 90%;
+    --input: 220 14% 86%;
+    --muted: 220 16% 96%;
+    --muted-foreground: 220 9% 42%;
+    --primary: 243 75% 56%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 16% 94%;
+    --secondary-foreground: 224 25% 18%;
+    --accent: 220 16% 93%;
+    --accent-foreground: 224 25% 18%;
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 152 62% 33%;
+    --success-foreground: 0 0% 100%;
+    --warning: 33 92% 42%;
+    --warning-foreground: 0 0% 100%;
+    --ring: 243 75% 56%;
+    --sidebar: 220 22% 96%;
+    color-scheme: light;
+  }
+  .dark {
+    --background: 225 18% 8%;
+    --foreground: 220 15% 93%;
+    --card: 225 16% 11%;
+    --card-foreground: 220 15% 93%;
+    --border: 225 12% 19%;
+    --input: 225 12% 24%;
+    --muted: 225 14% 14%;
+    --muted-foreground: 220 9% 64%;
+    --primary: 240 85% 68%;
+    --primary-foreground: 225 30% 8%;
+    --secondary: 225 14% 16%;
+    --secondary-foreground: 220 15% 90%;
+    --accent: 225 14% 18%;
+    --accent-foreground: 220 15% 90%;
+    --destructive: 0 70% 56%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 152 55% 45%;
+    --success-foreground: 225 30% 8%;
+    --warning: 38 92% 55%;
+    --warning-foreground: 225 30% 8%;
+    --ring: 240 85% 68%;
+    --sidebar: 225 18% 10%;
+    color-scheme: dark;
+  }
+
+  * {
+    @apply border-border;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background font-sans text-sm text-foreground antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+  /* Keep tabular numbers aligned in tables and stat cards. */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+  ::selection {
+    background: hsl(var(--primary) / 0.25);
+  }
+  input[type="date"],
+  input[type="datetime-local"],
+  input[type="time"] {
+    min-height: 2rem;
+  }
+}
+
+@layer components {
+  /* Spreadsheet-style borderless cell inputs. */
+  .cell-input {
+    @apply h-8 w-full min-w-0 rounded-sm border border-transparent bg-transparent px-2 text-[13px] outline-none transition-colors;
+    @apply hover:border-border focus:border-ring focus:bg-card focus:ring-2 focus:ring-ring/20;
+  }
+  .scroll-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
