@@ -1,46 +1,44 @@
 {
-  // Single Worker deployment: serves the React SPA (static assets) and the REST API (/api/*).
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "pims",
-  "main": "worker/src/index.ts",
-  "compatibility_date": "2025-09-01",
-  "compatibility_flags": ["nodejs_compat"],
-
-  "assets": {
-    "directory": "./web/dist",
-    "binding": "ASSETS",
-    "not_found_handling": "single-page-application",
-    // API requests always hit the Worker first; everything else is served from static assets.
-    "run_worker_first": ["/api/*"]
-  },
-
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "pims-db",
-      // Replace with the id printed by:  npx wrangler d1 create pims-db
-      // (the placeholder is fine for local development)
-      "database_id": "00000000-0000-0000-0000-000000000000",
-      "migrations_dir": "migrations"
-    }
-  ],
-
-  // OPTIONAL — PDF/report attachments in R2.
-  // 1) npx wrangler r2 bucket create pims-attachments
-  // 2) uncomment the block below and redeploy.
-  // "r2_buckets": [
-  //   { "binding": "ATTACHMENTS", "bucket_name": "pims-attachments" }
-  // ],
-
-  "vars": {
-    "APP_NAME": "DOM",
-    "SESSION_TTL_DAYS": "30",
-    // Optional comma-separated extra origins allowed to call the API (e.g. a custom domain).
-    "ALLOWED_ORIGINS": ""
-  },
-
-  // Secrets (never put these in this file):
-  //   npx wrangler secret put SETUP_KEY     <- strongly recommended: required to create the first account
-
-  "observability": { "enabled": true }
+	// Single Worker deployment: serves the React SPA (static assets) and the REST API (/api/*).
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "dom",
+	"main": "worker/src/index.ts",
+	"compatibility_date": "2025-09-01",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"assets": {
+		"directory": "./web/dist",
+		"binding": "ASSETS",
+		"not_found_handling": "single-page-application",
+		// API requests always hit the Worker first; everything else is served from static assets.
+		"run_worker_first": [
+			"/api/*"
+		]
+	},
+	"d1_databases": [
+  {
+    "binding": "DB",
+    "database_name": "dom-db",
+    "database_id": "e8cda082-c76c-4dae-ae8c-0b3c6a417c56",
+    "migrations_dir": "migrations"
+  }
+],
+	// OPTIONAL — PDF/report attachments in R2.
+	// 1) npx wrangler r2 bucket create pims-attachments
+	// 2) uncomment the block below and redeploy.
+	// "r2_buckets": [
+	//   { "binding": "ATTACHMENTS", "bucket_name": "pims-attachments" }
+	// ],
+	"vars": {
+		"APP_NAME": "DOM",
+		"SESSION_TTL_DAYS": "30",
+		// Optional comma-separated extra origins allowed to call the API (e.g. a custom domain).
+		"ALLOWED_ORIGINS": ""
+	},
+	// Secrets (never put these in this file):
+	//   npx wrangler secret put SETUP_KEY     <- strongly recommended: required to create the first account
+	"observability": {
+		"enabled": true
+	}
 }
